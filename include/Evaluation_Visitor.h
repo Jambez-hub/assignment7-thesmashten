@@ -3,6 +3,13 @@
 #define EVALUATION_VISITOR_H
 
 #include "Visitor.h"
+#include "Composite_Add_Node.h"
+#include "Composite_Divide_Node.h"
+#include "Composite_Multiply_Node.h"
+#include "Composite_Negate_Node.h"
+#include "Composite_Subtract_Node.h"
+#include "Composite_Pow_Node.h"
+#include "Leaf_Node.h"
 #include <stack>
 
 // forward declarations of nodes
@@ -14,6 +21,7 @@ class Composite_Add_Node;
 class Composite_Subtract_Node;
 class Composite_Divide_Node;
 class Composite_Multiply_Node;
+class Composite_Pow_Node;
 
 /**
  * @class Evaluation_Visitor
@@ -41,6 +49,12 @@ public:
 
     // Visit a Composite_Multiply_Node.
     void visit(const Composite_Multiply_Node& node) override;
+
+    // Visit a Composite_Pow_Node.
+    void visit(const Composite_Pow_Node& node) override;
+
+    // Visit a Composite_Fact_Node.
+    void visit(const Composite_Fact_Node& node) override;
 
     // Print the total of the evaluation.
     int total();

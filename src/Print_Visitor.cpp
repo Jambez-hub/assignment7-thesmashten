@@ -8,6 +8,7 @@
 #include "Composite_Multiply_Node.h"
 #include "Composite_Negate_Node.h"
 #include "Composite_Subtract_Node.h"
+#include "Composite_Pow_Node.h"
 #include "Leaf_Node.h"
 #include <iostream>
 #include <memory>
@@ -46,6 +47,17 @@ void Print_Visitor::visit(const Composite_Divide_Node&)
 void Print_Visitor::visit(const Composite_Multiply_Node&)
 {
     std::cout << "* ";
+}
+
+// visit function - prints Composite_Pow_Node contents to std::cout
+void Print_Visitor::visit(const Composite_Pow_Node&)
+{
+    std::cout << "^ ";
+}
+
+// visit function - prints Composite_Fact_Node contents to std::cout
+void Print_Visitor::visit(const Composite_Fact_Node&){
+    std::cout << '!';
 }
 
 #endif // PRINT_VISITOR_CPP

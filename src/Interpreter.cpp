@@ -9,6 +9,8 @@
 #include "Composite_Multiply_Node.h"
 #include "Composite_Negate_Node.h"
 #include "Composite_Subtract_Node.h"
+#include "Composite_Pow_Node.h"
+#include "Composite_Fact_Node.h"
 #include "Leaf_Node.h"
 #include <cstdlib>
 #include <iostream>
@@ -134,6 +136,32 @@ public:
     Component_Node* build() override;
 };
 
+class Factorial : public Unary_Operator {
+public:
+    // constructor
+    Factorial();
+    //destructor
+    ~Factorial() override = default;
+    //returns the precedence level
+    int add_precedence(int accumulated_precedence) override;
+    // builds an equivalent Expression_Tree node
+    Component_Node* build() override;
+
+
+};
+
+class Pow : public Operator {
+public:
+    // constructor
+    Pow();
+    // destructor
+    ~Pow() override = default;
+    // returns the precedence level
+    int add_precedence(int accumulated_precedence) override;
+    // builds an equivalent Expression_Tree node
+    Component_Node* build() override;
+};
+
 /**
  * @class Multiply
  * @brief Multiplication node of the parse tree
@@ -220,14 +248,14 @@ Unary_Operator::Unary_Operator(Symbol* right, int precedence)
 
 // constructor
 Number::Number(const std::string& input)
-    : Symbol(nullptr, nullptr, 4)
+    : Symbol(nullptr, nullptr, 5)
 {
     item = ::atoi(input.c_str());
 }
 
 // constructor
 Number::Number(const int& input)
-    : Symbol(nullptr, nullptr, 4)
+    : Symbol(nullptr, nullptr, 5)
     , item(input)
 {
 }
@@ -235,13 +263,29 @@ Number::Number(const int& input)
 // returns the precedence level
 int Number::add_precedence(int accumulated_precedence)
 {
-    return this->prec = 4 + accumulated_precedence;
+    return this->prec = 5 + accumulated_precedence;
 }
 
 // builds an equivalent Expression_Tree node
 Component_Node* Number::build()
 {
     return new Leaf_Node(item);
+}
+// constructor
+Factorial::Factorial()
+    : Unary_Operator(nullptr, 3)
+{
+}
+
+// returns the precedence level
+int Factorial::add_precedence(int accumulated_precedence)
+{
+        return this->prec = 3 + accumulated_precedence;
+}
+
+Component_Node* Factorial::build()
+{
+    return new Composite_Fact_Node(right->build());
 }
 
 // constructor
@@ -304,6 +348,24 @@ Multiply::Multiply()
 {
 }
 
+// constructor
+Pow::Pow()
+    : Operator(nullptr, nullptr, 4)
+{
+}
+
+// builds an equivalent Expression_Tree node
+Component_Node* Pow::build()
+{
+    return new Composite_Pow_Node(left->build(), right->build());
+}
+
+// returns the precedence level
+int Pow::add_precedence(int accumulated_precedence)
+{
+    return this->prec = 4 + accumulated_precedence;
+}
+
 // returns the precedence level
 int Multiply::add_precedence(int accumulated_precedence)
 {
@@ -337,7 +399,8 @@ Component_Node* Divide::build()
 // method for checking if a character is a valid operator
 bool Interpreter::is_operator(char input)
 {
-    return input == '+' || input == '-' || input == '*' || input == '/' || input == '%';
+    return input == '+' || input == '-' || input == '*' || input == '/' || input == '%'
+        || input == '^' || input == '!';
 }
 
 // method for checking if a character is a number
@@ -561,6 +624,20 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
     } else if (input[i] == ' ' || input[i] == '\n') {
         handled = true;
         // skip whitespace
+    }
+    else if (input[i] == '^'){
+        handled = true;
+        auto op = new Pow();
+        op->add_precedence(accumulated_precedence);
+        lastValidInput = nullptr;
+        precedence_insert(op, list);
+    }
+    else if (input[i] == '!'){
+        handled = true;
+        auto op = new Factorial();
+        op->add_precedence(accumulated_precedence);
+        lastValidInput = nullptr;
+        precedence_insert(op, list);
     }
 }
 

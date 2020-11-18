@@ -30,6 +30,13 @@ public:
 
     // visit function - prints Composite_Multiply_Node contents to std::cout
     void visit(const Composite_Multiply_Node& node) override;
+
+    // visit function - prints Composite_Pow_Node contents to std::cout
+    void visit(const Composite_Pow_Node& node) override;
+
+    // visit function - prints Composite_Fact_Node contents to std::cout
+    void visit(const Composite_Fact_Node& node) override;
+
 };
 
 #endif // PRINT_VISITOR_H

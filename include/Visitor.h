@@ -8,6 +8,8 @@ class Composite_Add_Node;
 class Composite_Subtract_Node;
 class Composite_Divide_Node;
 class Composite_Multiply_Node;
+class Composite_Pow_Node;
+class Composite_Fact_Node;
 
 /**
  * @class Visitor
@@ -36,6 +38,12 @@ public:
 
     // Visit a Composite_Multiply_Node.
     virtual void visit(const Composite_Multiply_Node& node) = 0;
+
+    // Visit a Composite_Pow_Node
+    virtual void visit(const Composite_Pow_Node& node) = 0;
+
+    // Visit a Composite_Fact_Node
+    virtual void visit(const Composite_Fact_Node& node) = 0;
 
     // No-op destructor to hold things together.
     virtual ~Visitor() = default;
