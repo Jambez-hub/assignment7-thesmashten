@@ -3,8 +3,8 @@
 #include "Visitor.h"
 
 // Ctor
-Composite_Fact_Node::Composite_Fact_Node(Component_Node* right)
-    : Composite_Unary_Node(right)
+Composite_Fact_Node::Composite_Fact_Node(Component_Node* left)
+    : Composite_Unary_Node(left)
 {
 }
 

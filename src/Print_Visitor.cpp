@@ -60,4 +60,9 @@ void Print_Visitor::visit(const Composite_Fact_Node&){
     std::cout << '!';
 }
 
+// visit function - prints Composite_Fact_Node contents to std::cout
+void Print_Visitor::visit(const Composite_Modulus_Node&){
+    std::cout << '% ';
+}
+
 #endif // PRINT_VISITOR_CPP

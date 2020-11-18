@@ -11,6 +11,7 @@
 #include "Composite_Subtract_Node.h"
 #include "Composite_Pow_Node.h"
 #include "Composite_Fact_Node.h"
+#include "Composite_Modulus_Node.h"
 #include "Leaf_Node.h"
 #include <cstdlib>
 #include <iostream>
@@ -65,6 +66,14 @@ public:
     explicit Unary_Operator(Symbol* right, int precedence = 1);
     // destructor
     ~Unary_Operator() override = default;
+};
+
+class Unary_Left_Operator : public Symbol {
+public:
+    // constructor
+    explicit Unary_Left_Operator(Symbol* left, int precedence = 1);
+    // destructor
+    ~Unary_Left_Operator() override = default;
 };
 
 /**
@@ -136,7 +145,7 @@ public:
     Component_Node* build() override;
 };
 
-class Factorial : public Unary_Operator {
+class Factorial : public Unary_Left_Operator {
 public:
     // constructor
     Factorial();
@@ -146,8 +155,6 @@ public:
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
-
-
 };
 
 class Pow : public Operator {
@@ -191,6 +198,18 @@ public:
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
+    Component_Node* build() override;
+};
+
+class Modulus : public Operator {
+public:
+    // constructor
+    Modulus();
+    // destructor
+    ~Modulus() override = default;
+    // returns the precedence level
+    int add_precedence(int accumulated_precedence) override;
+    //builds an equivalent Expression_Treee node
     Component_Node* build() override;
 };
 
@@ -246,16 +265,21 @@ Unary_Operator::Unary_Operator(Symbol* right, int precedence)
 {
 }
 
+Unary_Left_Operator::Unary_Left_Operator(Symbol* left, int precedence)
+    : Symbol(nullptr, left, precedence)
+{
+}
+
 // constructor
 Number::Number(const std::string& input)
-    : Symbol(nullptr, nullptr, 5)
+    : Symbol(nullptr, nullptr, 7)
 {
     item = ::atoi(input.c_str());
 }
 
 // constructor
 Number::Number(const int& input)
-    : Symbol(nullptr, nullptr, 5)
+    : Symbol(nullptr, nullptr, 7)
     , item(input)
 {
 }
@@ -263,7 +287,7 @@ Number::Number(const int& input)
 // returns the precedence level
 int Number::add_precedence(int accumulated_precedence)
 {
-    return this->prec = 5 + accumulated_precedence;
+    return this->prec = 7 + accumulated_precedence;
 }
 
 // builds an equivalent Expression_Tree node
@@ -273,19 +297,19 @@ Component_Node* Number::build()
 }
 // constructor
 Factorial::Factorial()
-    : Unary_Operator(nullptr, 3)
+    : Unary_Left_Operator(nullptr, 5)
 {
 }
 
 // returns the precedence level
 int Factorial::add_precedence(int accumulated_precedence)
 {
-        return this->prec = 3 + accumulated_precedence;
+    return this->prec = 5 + accumulated_precedence;
 }
 
 Component_Node* Factorial::build()
 {
-    return new Composite_Fact_Node(right->build());
+    return new Composite_Fact_Node(left->build());
 }
 
 // constructor
@@ -348,6 +372,18 @@ Multiply::Multiply()
 {
 }
 
+// returns the precedence level
+int Multiply::add_precedence(int accumulated_precedence)
+{
+    return this->prec = 2 + accumulated_precedence;
+}
+
+// builds an equivalent Expression_Tree node
+Component_Node* Multiply::build()
+{
+    return new Composite_Multiply_Node(left->build(), right->build());
+}
+
 // constructor
 Pow::Pow()
     : Operator(nullptr, nullptr, 4)
@@ -366,17 +402,6 @@ int Pow::add_precedence(int accumulated_precedence)
     return this->prec = 4 + accumulated_precedence;
 }
 
-// returns the precedence level
-int Multiply::add_precedence(int accumulated_precedence)
-{
-    return this->prec = 2 + accumulated_precedence;
-}
-
-// builds an equivalent Expression_Tree node
-Component_Node* Multiply::build()
-{
-    return new Composite_Multiply_Node(left->build(), right->build());
-}
 
 // constructor
 Divide::Divide()
@@ -396,11 +421,29 @@ Component_Node* Divide::build()
     return new Composite_Divide_Node(left->build(), right->build());
 }
 
+// constructor
+Modulus::Modulus()
+    : Operator(nullptr, nullptr, 3)
+{
+}
+
+// returns the precedence level
+int Modulus::add_precedence(int accumulated_precedence)
+{
+    return this->prec = 2 + accumulated_precedence;
+}
+
+// builds an equivalent Expression_Tree node
+Component_Node* Modulus::build()
+{
+    return new Composite_Modulus_Node(left->build(), right->build());
+}
+
 // method for checking if a character is a valid operator
 bool Interpreter::is_operator(char input)
 {
     return input == '+' || input == '-' || input == '*' || input == '/' || input == '%'
-        || input == '^' || input == '!';
+        || input == '^' || input == '!' || input == '%';
 }
 
 // method for checking if a character is a number
@@ -639,6 +682,13 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
         lastValidInput = nullptr;
         precedence_insert(op, list);
     }
+    else if (input[i] == '%'){
+        handled = true;
+        auto op = new Modulus();
+        op->add_precedence(accumulated_precedence);
+        lastValidInput = nullptr;
+        precedence_insert(op, list);
+    }
 }
 
 void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::string& input,
@@ -650,7 +700,7 @@ void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::st
        function has its list setup */
     // std::cerr << "Handling an opening parenthesis.\n";
 
-    accumulated_precedence += 5;
+    accumulated_precedence += 6;
     std::list<Symbol*> list;
     handled = false;
     for (++i; i < input.length(); ++i) {
@@ -659,7 +709,7 @@ void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::st
             // std::cerr << "Handling a closing parenthesis.\n";
             handled = true;
             //++i;
-            accumulated_precedence -= 5;
+            accumulated_precedence -= 6;
             break;
         }
     }

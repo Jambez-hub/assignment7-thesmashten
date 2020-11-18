@@ -10,13 +10,13 @@ class Visitor;
 
 /**
  * @class Composite_Negate_Node
- * @brief A composite node containing only a right child.
- *        The meaning of this node is -right, eg -5, -7, etc.
+ * @brief A composite node containing only a left child.
+ *        The meaning of this node is left!
  */
 class Composite_Fact_Node : public Composite_Unary_Node {
 public:
     // Ctor
-    explicit Composite_Fact_Node(Component_Node* right);
+    explicit Composite_Fact_Node(Component_Node* left);
 
     // Dtor
     ~Composite_Fact_Node() override = default;

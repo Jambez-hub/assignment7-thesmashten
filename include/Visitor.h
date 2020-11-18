@@ -10,7 +10,7 @@ class Composite_Divide_Node;
 class Composite_Multiply_Node;
 class Composite_Pow_Node;
 class Composite_Fact_Node;
-
+class Composite_Modulus_Node;
 /**
  * @class Visitor
  * @brief Abstract base class for all visitors to all classes that derive
@@ -44,6 +44,9 @@ public:
 
     // Visit a Composite_Fact_Node
     virtual void visit(const Composite_Fact_Node& node) = 0;
+
+    // Visit a Composite_Modulus_Node
+    virtual void visit(const Composite_Modulus_Node& node) = 0;
 
     // No-op destructor to hold things together.
     virtual ~Visitor() = default;

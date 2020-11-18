@@ -56,6 +56,9 @@ public:
     // Visit a Composite_Fact_Node.
     void visit(const Composite_Fact_Node& node) override;
 
+    // Visit a Composite_Modulus_Node.
+    void visit(const Composite_Modulus_Node& node) override;
+
     // Print the total of the evaluation.
     int total();
 

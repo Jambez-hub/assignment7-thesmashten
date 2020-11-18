@@ -98,6 +98,17 @@ void Evaluation_Visitor::visit(const Composite_Fact_Node& node) {
     }
 }
 
+void Evaluation_Visitor::visit(const Composite_Modulus_Node& node){
+    if (stack.size() >= 2 && stack.top()) {
+        auto rhs = stack.top();
+        stack.pop();
+        auto lhs = stack.top();
+        stack.pop();
+        stack.push(lhs % rhs);
+    }
+}
+
+
 
 // print a total for the evaluation
 int Evaluation_Visitor::total()
