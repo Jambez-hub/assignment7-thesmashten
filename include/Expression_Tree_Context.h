@@ -79,8 +79,8 @@ public:
     {
         return isFormatted;
     }
+    bool isValid(std::string expression);
 
-    Interpreter_Context getInterpreter();
 
     // Persistent interpreter context for variables. Our interpreter
     // will change values inside of this, so I just stuck the variable
