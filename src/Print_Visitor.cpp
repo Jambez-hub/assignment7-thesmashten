@@ -6,6 +6,8 @@
 // Assignment Number: 7
 // Description: This class implements the Print_Visitor class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
+
 #ifndef PRINT_VISITOR_CPP
 #define PRINT_VISITOR_CPP
 

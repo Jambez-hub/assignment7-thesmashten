@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class defines a Composite_Fact_Node data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef COMPOSITE_FACT_NODE_H
 #define COMPOSITE_FACT_NODE_H
 

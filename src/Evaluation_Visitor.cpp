@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an Evalauation_Visitor class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include "Evaluation_Visitor.h"
 #include <iostream>
 #include <math.h> /* pow */

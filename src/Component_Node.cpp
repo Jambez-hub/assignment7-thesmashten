@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements a Component_Node data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 
 #include "Component_Node.h"
 

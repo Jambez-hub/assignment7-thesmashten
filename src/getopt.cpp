@@ -6,7 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an geopt class
 // Last Changed: 11/20/20
-
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include <iostream>
 #include <stdio.h>
 #include <string.h>

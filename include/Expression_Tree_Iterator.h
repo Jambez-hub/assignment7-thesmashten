@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class defines a Expression_Tree_Iterator data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef TREE_ITERATOR_H
 #define TREE_ITERATOR_H
 

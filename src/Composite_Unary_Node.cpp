@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements a Composite_Unary_Node data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include "Composite_Unary_Node.h"
 
 // Ctor

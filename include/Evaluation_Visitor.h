@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class defines a Evaluation_Visitor data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EVALUATION_VISITOR_H
 #define EVALUATION_VISITOR_H
 

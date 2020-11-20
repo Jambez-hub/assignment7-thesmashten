@@ -353,7 +353,7 @@ int Factorial::add_precedence(int accumulated_precedence)
 Component_Node* Factorial::build()
 {
     if (left == nullptr) {
-        std ::cout << "ERROR";
+        std ::cout << "ERROR, expecting a left identifier";
         return new Composite_Fact_Node(nullptr);
     }
     return new Composite_Fact_Node(left->build());
@@ -374,7 +374,7 @@ int Negate::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Negate::build()
 {
-    if (right == nullptr){
+    if (right == nullptr) {
         std ::cout << "ERROR";
         return new Composite_Negate_Node(nullptr);
     }

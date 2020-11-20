@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class defines a Expression_Tree_Command_Impl data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EXPRESSION_TREE_COMMAND_IMPL_H
 #define EXPRESSION_TREE_COMMAND_IMPL_H
 

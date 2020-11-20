@@ -6,6 +6,8 @@
 // Assignment Number: 7
 // Description: This class implements the Refcounter class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
+
 #ifndef REFCOUNTER_CPP
 #define REFCOUNTER_CPP
 

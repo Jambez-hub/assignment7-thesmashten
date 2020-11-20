@@ -6,6 +6,8 @@
 // Assignment Number: 7
 // Description: This class implements the main program
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
+
 #include "Expression_Tree_Event_Handler.h"
 #include "Options.h"
 #include "Reactor.h"

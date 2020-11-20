@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an Expression_Tree_Event_Handler class.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 
 #ifndef EXPRESSION_TREE_EVENT_HANDLER_CPP
 #define EXPRESSION_TREE_EVENT_HANDLER_CPP
@@ -59,17 +60,17 @@ bool Expression_Tree_Event_Handler::get_input(std::string& input)
         return std::cin.fail();
     }
     std::getline(std::cin, input);
-    int num = input.find_first_of(" ");
-    std::string first;
-    std::string second;
-    if (num == -1) { // handle error if cannot find the first ocurrence
-        first = input;
+    int pos = input.find_first_of(" ");
+    std::string part1;
+    std::string part2;
+    if (pos == -1) { // handle error if cannot find the first ocurrence
+        part1 = input;
     } else {
-        first = input.substr(0, num);
-        second = input.substr(num);
+        part1 = input.substr(0, pos);
+        part2 = input.substr(pos);
     }
-    toLowerCase(first);
-    input = first + second;
+    toLowerCase(part1);
+    input = part1 + part2;
     return !std::cin.fail();
 }
 

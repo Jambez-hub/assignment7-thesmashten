@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an Expression_Tree_Iterator_Impl class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef TREE_ITERATOR_IMPL_CPP
 #define TREE_ITERATOR_IMPL_CPP
 

@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an Expression_Tree_Command_Impl class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include "Expression_Tree_Command_Impl.h"
 #include "Expression_Tree_Command_Factory_Impl.h"
 #include "Expression_Tree_Context.h"

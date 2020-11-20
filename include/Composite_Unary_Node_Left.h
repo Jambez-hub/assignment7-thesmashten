@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class defines a Composite_Unary_Node_Left data structure.
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef COMPOSITE_UNARY_NODE_LEFT_H
 #define COMPOSITE_UNARY_NODE_LEFT_H
 

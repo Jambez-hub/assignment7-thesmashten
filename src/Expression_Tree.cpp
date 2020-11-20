@@ -6,6 +6,7 @@
 // Assignment Number: 7
 // Description: This class implements an Expression_Tree class
 // Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 
 #ifndef EXPRESSION_TREE_CPP
 #define EXPRESSION_TREE_CPP
