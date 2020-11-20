@@ -84,6 +84,10 @@ public:
     // implementation of the various commands.
     virtual Expression_Tree_Command make_macro_command(const std::string&) = 0;
 
+    // Make the requested macro command.  This method is used in the
+    // implementation of the various commands.
+    // virtual Expression_Tree_Command make_stats_command(const std::string&) = 0;
+
 protected:
     // Ctor - only visible to derived classes.
     Expression_Tree_Command_Factory_Impl();
@@ -144,6 +148,10 @@ public:
     // Make the requested macro command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_macro_command(const std::string&);
+
+    // Make the requested macro command.  This method is used in the
+    // implementation of the various commands.
+    // virtual Expression_Tree_Command make_stats_command(const std::string&);
 
 private:
     // Useful typedefs to simplify use of the STL @std::map.

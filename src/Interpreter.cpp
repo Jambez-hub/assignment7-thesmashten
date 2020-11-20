@@ -21,6 +21,8 @@
 #include "Composite_Pow_Node.h"
 #include "Composite_Subtract_Node.h"
 #include "Composite_Unary_Node_Left.h"
+#include "Expression_Tree_Context.h"
+#include "Expression_Tree_Event_Handler.h"
 #include "Leaf_Node.h"
 #include <cstdlib>
 #include <iostream>
@@ -49,6 +51,9 @@ public:
     Symbol* left;
     Symbol* right;
     int prec;
+
+private:
+    size_t index;
 };
 
 /**
@@ -59,9 +64,12 @@ public:
 class Operator : public Symbol {
 public:
     // constructor
-    Operator(Symbol* left, Symbol* right, int precedence = 1);
+    Operator(Symbol* left, Symbol* right, int index, int precedence = 1);
     // destructor
     ~Operator() override = default;
+
+private:
+    size_t index;
 };
 
 /**
@@ -72,17 +80,23 @@ public:
 class Unary_Operator : public Symbol {
 public:
     // constructor
-    explicit Unary_Operator(Symbol* right, int precedence = 1);
+    explicit Unary_Operator(Symbol* right, int index, int precedence = 1);
     // destructor
     ~Unary_Operator() override = default;
+
+private:
+    size_t index;
 };
 
 class Unary_Left_Operator : public Symbol {
 public:
     // constructor
-    explicit Unary_Left_Operator(Symbol* left, int precedence = 1);
+    explicit Unary_Left_Operator(Symbol* left, int index, int precedence = 1);
     // destructor
     ~Unary_Left_Operator() override = default;
+
+private:
+    size_t index;
 };
 
 /**
@@ -92,7 +106,7 @@ public:
 class Number : public Symbol {
 public:
     // constructors
-    explicit Number(const std::string& input);
+    explicit Number(const std::string& input, int index);
     explicit Number(const int& input);
     // destructor
     ~Number() override = default;
@@ -104,6 +118,7 @@ public:
 private:
     // contains the value of the leaf node
     int item;
+    size_t index;
 };
 
 /**
@@ -113,13 +128,16 @@ private:
 class Subtract : public Operator {
 public:
     // constructor
-    Subtract();
+    Subtract(int index);
     // destructor
     ~Subtract() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 /**
@@ -129,13 +147,16 @@ public:
 class Add : public Operator {
 public:
     // constructor
-    Add();
+    Add(int index);
     // destructor
     ~Add() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 /**
@@ -145,37 +166,46 @@ public:
 class Negate : public Unary_Operator {
 public:
     // constructor
-    Negate();
+    Negate(int index);
     // destructor
     ~Negate() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 class Factorial : public Unary_Left_Operator {
 public:
     // constructor
-    Factorial();
+    Factorial(int index);
     // destructor
     ~Factorial() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 class Pow : public Operator {
 public:
     // constructor
-    Pow();
+    Pow(int index);
     // destructor
     ~Pow() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 /**
@@ -185,13 +215,16 @@ public:
 class Multiply : public Operator {
 public:
     // constructor
-    Multiply();
+    Multiply(int index);
     // destructor
     ~Multiply() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 /**
@@ -201,25 +234,31 @@ public:
 class Divide : public Operator {
 public:
     // constructor
-    Divide();
+    Divide(int index);
     // destructor
     ~Divide() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 class Modulus : public Operator {
 public:
     // constructor
-    Modulus();
+    Modulus(int index);
     // destructor
     ~Modulus() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Treee node
     Component_Node* build() override;
+
+private:
+    size_t index;
 };
 
 // return the value of a variable
@@ -297,26 +336,30 @@ Symbol::~Symbol()
 }
 
 // constructor
-Operator::Operator(Symbol* left, Symbol* right, int precedence)
+Operator::Operator(Symbol* left, Symbol* right, int pos, int precedence)
     : Symbol(left, right, precedence)
 {
+    index = pos;
 }
 
 // constructor
-Unary_Operator::Unary_Operator(Symbol* right, int precedence)
+Unary_Operator::Unary_Operator(Symbol* right, int pos, int precedence)
     : Symbol(nullptr, right, precedence)
 {
+    index = pos;
 }
 
-Unary_Left_Operator::Unary_Left_Operator(Symbol* left, int precedence)
+Unary_Left_Operator::Unary_Left_Operator(Symbol* left, int pos, int precedence)
     : Symbol(nullptr, left, precedence)
 {
+    index = pos;
 }
 
 // constructor
-Number::Number(const std::string& input)
+Number::Number(const std::string& input, int pos)
     : Symbol(nullptr, nullptr, 7)
 {
+    index = pos;
     item = ::atoi(input.c_str());
 }
 
@@ -339,9 +382,10 @@ Component_Node* Number::build()
     return new Leaf_Node(item);
 }
 // constructor
-Factorial::Factorial()
-    : Unary_Left_Operator(nullptr, 5)
+Factorial::Factorial(int pos)
+    : Unary_Left_Operator(nullptr, index, 5)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -353,16 +397,21 @@ int Factorial::add_precedence(int accumulated_precedence)
 Component_Node* Factorial::build()
 {
     if (left == nullptr) {
-        std ::cout << "ERROR, expecting a left identifier";
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to !\n";
         return new Composite_Fact_Node(nullptr);
     }
     return new Composite_Fact_Node(left->build());
 }
 
 // constructor
-Negate::Negate()
-    : Unary_Operator(nullptr, 3)
+Negate::Negate(int pos)
+    : Unary_Operator(nullptr, index, 3)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -375,16 +424,21 @@ int Negate::add_precedence(int accumulated_precedence)
 Component_Node* Negate::build()
 {
     if (right == nullptr) {
-        std ::cout << "ERROR";
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to -\n";
         return new Composite_Negate_Node(nullptr);
     }
     return new Composite_Negate_Node(right->build());
 }
 
 // constructor
-Add::Add()
-    : Operator(nullptr, nullptr, 1)
+Add::Add(int pos)
+    : Operator(nullptr, nullptr, index, 1)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -396,17 +450,30 @@ int Add::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Add::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to +\n";
+        return new Composite_Add_Node(nullptr, nullptr);
+    }
+    if (left == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to +\n";
         return new Composite_Add_Node(nullptr, nullptr);
     }
     return new Composite_Add_Node(left->build(), right->build());
 }
 
 // constructor
-Subtract::Subtract()
-    : Operator(nullptr, nullptr, 1)
+Subtract::Subtract(int pos)
+    : Operator(nullptr, nullptr, index, 1)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -418,17 +485,30 @@ int Subtract::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Subtract::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to -\n";
+        return new Composite_Subtract_Node(nullptr, nullptr);
+    }
+    if (left == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to -\n";
         return new Composite_Subtract_Node(nullptr, nullptr);
     }
     return new Composite_Subtract_Node(left->build(), right->build());
 }
 
 // constructor
-Multiply::Multiply()
-    : Operator(nullptr, nullptr, 2)
+Multiply::Multiply(int pos)
+    : Operator(nullptr, nullptr, index, 2)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -440,24 +520,49 @@ int Multiply::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Multiply::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to *\n";
+        return new Composite_Multiply_Node(nullptr, nullptr);
+    }
+    if (left == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to *\n";
         return new Composite_Multiply_Node(nullptr, nullptr);
     }
     return new Composite_Multiply_Node(left->build(), right->build());
 }
 
 // constructor
-Pow::Pow()
-    : Operator(nullptr, nullptr, 4)
+Pow::Pow(int pos)
+    : Operator(nullptr, nullptr, index, 4)
 {
+    index = pos;
 }
 
 // builds an equivalent Expression_Tree node
 Component_Node* Pow::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to ^\n";
+        return new Composite_Pow_Node(nullptr, nullptr);
+    }
+    if (left == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting left operand to ^\n";
         return new Composite_Pow_Node(nullptr, nullptr);
     }
     return new Composite_Pow_Node(left->build(), right->build());
@@ -470,9 +575,10 @@ int Pow::add_precedence(int accumulated_precedence)
 }
 
 // constructor
-Divide::Divide()
-    : Operator(nullptr, nullptr, 2)
+Divide::Divide(int pos)
+    : Operator(nullptr, nullptr, index, 2)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -484,17 +590,26 @@ int Divide::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Divide::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to /\n";
+        return new Composite_Divide_Node(nullptr, nullptr);
+    } else if (left == nullptr) {
+        std::cout << "--^";
+        std::cout << "Error: Expecting left operand to /\n";
         return new Composite_Divide_Node(nullptr, nullptr);
     }
     return new Composite_Divide_Node(left->build(), right->build());
 }
 
 // constructor
-Modulus::Modulus()
-    : Operator(nullptr, nullptr, 3)
+Modulus::Modulus(int pos)
+    : Operator(nullptr, nullptr, index, 3)
 {
+    index = pos;
 }
 
 // returns the precedence level
@@ -506,8 +621,20 @@ int Modulus::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Modulus::build()
 {
-    if (right == nullptr || left == nullptr) {
-        std ::cout << "ERROR";
+    if (right == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Error: Expecting right operand to %\n";
+        return new Composite_Modulus_Node(nullptr, nullptr);
+    }
+    if (left == nullptr) {
+        for (uint32_t i = 0; i < index + 2; ++i) {
+            std::cout << "-";
+        }
+        std::cout << "^";
+        std::cout << "Left identifier expected.";
         return new Composite_Modulus_Node(nullptr, nullptr);
     }
     return new Composite_Modulus_Node(left->build(), right->build());
@@ -602,7 +729,7 @@ void Interpreter::number_insert(const std::string& input, std::string::size_type
     for (; i + j <= input.length() && is_number(input[i + j]); ++j)
         continue;
 
-    Number* number = new Number(input.substr(i, j));
+    Number* number = new Number(input.substr(i, j), j);
     number->add_precedence(accumulated_precedence);
 
     lastValidInput = number;
@@ -687,7 +814,7 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
     } else if (input[i] == '+') {
         handled = true;
         // addition operation
-        auto op = new Add();
+        auto op = new Add(i);
         op->add_precedence(accumulated_precedence);
 
         lastValidInput = nullptr;
@@ -700,11 +827,11 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
         Symbol* op = nullptr;
         if (!lastValidInput) {
             // Negate
-            op = new Negate();
+            op = new Negate(i);
             op->add_precedence(accumulated_precedence);
         } else {
             // Subtract
-            op = new Subtract();
+            op = new Subtract(i);
             op->add_precedence(accumulated_precedence);
         }
 
@@ -716,7 +843,7 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
     } else if (input[i] == '*') {
         handled = true;
         // multiplication operation
-        auto op = new Multiply();
+        auto op = new Multiply(i);
         op->add_precedence(accumulated_precedence);
 
         lastValidInput = nullptr;
@@ -727,7 +854,7 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
     } else if (input[i] == '/') {
         handled = true;
         // division operation
-        auto op = new Divide();
+        auto op = new Divide(i);
         op->add_precedence(accumulated_precedence);
 
         lastValidInput = nullptr;
@@ -743,19 +870,19 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
         // skip whitespace
     } else if (input[i] == '^') {
         handled = true;
-        auto op = new Pow();
+        auto op = new Pow(i);
         op->add_precedence(accumulated_precedence);
         lastValidInput = nullptr;
         precedence_insert(op, list);
     } else if (input[i] == '!') {
         handled = true;
-        auto op = new Factorial();
+        auto op = new Factorial(i);
         op->add_precedence(accumulated_precedence);
         lastValidInput = nullptr;
         precedence_insert(op, list);
     } else if (input[i] == '%') {
         handled = true;
-        auto op = new Modulus();
+        auto op = new Modulus(i);
         op->add_precedence(accumulated_precedence);
         lastValidInput = nullptr;
         precedence_insert(op, list);
@@ -766,7 +893,6 @@ void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::st
     std::string::size_type& i, Symbol*& lastValidInput, bool& handled, int& accumulated_precedence,
     std::list<Symbol*>& master_list)
 {
-
     /* handle parenthesis is a lot like handling a new interpret.
        the difference is that we have to worry about how the calling
        function has its list setup */

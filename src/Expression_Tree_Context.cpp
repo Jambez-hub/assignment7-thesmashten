@@ -53,8 +53,6 @@ void Expression_Tree_Context::evaluate(const std::string& format)
 
 void Expression_Tree_Context::set(const std::string& key_value_pair)
 {
-    std::string command = "set " + key_value_pair;
-    store.push(command);
     // this is quite enough function calls.
     // we'll just go ahead and parse all of this now.
     std::string input = key_value_pair;
@@ -75,6 +73,8 @@ void Expression_Tree_Context::set(const std::string& key_value_pair)
             std::string value = input.substr(pos + 1);
 
             int_context.set(key, atoi(value.c_str()));
+            std::string command = "set " + key_value_pair;
+            store.push(command);
         } else
             throw std::domain_error("Must be in the form key=value");
     } else
@@ -88,11 +88,15 @@ void Expression_Tree_Context::get(const std::string& variable)
     std::string temp = variable;
     while ((pos = temp.find(' ')) != std::string::npos)
         temp.erase(pos, 1);
-    std::string command = "get " + temp;
-    store.push(command);
-    if (!int_context.search(temp)) // check if variable is not in the map
-    {
+    if (!int_context.search(temp)) {
         std::cout << "Error: unknown variable " << temp << std::endl;
+    } else if (int_context.search(temp)) // check if variable is not in the map
+    {
+        int value = int_context.get(temp);
+        std::cout << value << "\n" << std::endl;
+        std::string command = "get " + temp;
+        command = "";
+        store.push(command);
     } else {
         int value = int_context.get(temp);
         std::cout << value << std::endl;

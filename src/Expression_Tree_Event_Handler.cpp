@@ -12,6 +12,7 @@
 #define EXPRESSION_TREE_EVENT_HANDLER_CPP
 
 #include "Expression_Tree_Event_Handler.h"
+#include "Expression_Tree_Context.h"
 #include "Options.h"
 #include "Reactor.h"
 #include <iostream>
