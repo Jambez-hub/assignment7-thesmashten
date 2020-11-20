@@ -33,31 +33,30 @@ void Expression_Tree_Context::format(const std::string& new_format)
 void Expression_Tree_Context::make_tree(const std::string& expression)
 {
     std::string command = "expr " + expression;
-    if (isValid(expression)){
+    if (isValid(expression)) {
         store.push(command);
     }
     treeState->make_tree(*this, expression);
 }
 
-bool Expression_Tree_Context::isValid(std::string expression){
+bool Expression_Tree_Context::isValid(std::string expression)
+{
     int num = expression.find_first_of("+");
     int num2 = expression.find_first_of("-");
-//    int num3 =  expression.find_first_of("*");
-//    int num4 = expression.find_first_of("%");
+    //    int num3 =  expression.find_first_of("*");
+    //    int num4 = expression.find_first_of("%");
     int numNums = 0;
-    if (num != -1){
+    if (num != -1) {
         for (char c : expression) {
-            if (Interpreter::is_number(c)){
+            if (Interpreter::is_number(c)) {
                 ++numNums;
             }
-            std :: cout << "THE NUMBER OF NUMS: " << numNums;
-            if (numNums % 2 == 0){
+            if (numNums % 2 == 0) {
                 return true;
             }
         }
     }
 }
-
 
 void Expression_Tree_Context::print(const std::string& format)
 {

@@ -81,7 +81,6 @@ public:
     }
     bool isValid(std::string expression);
 
-
     // Persistent interpreter context for variables. Our interpreter
     // will change values inside of this, so I just stuck the variable
     // in the public section.
