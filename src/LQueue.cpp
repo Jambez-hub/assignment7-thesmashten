@@ -1,4 +1,11 @@
-/* -*- C++ -*- */
+// File name: LQueue.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements a LQueue class
+// Last Changed: 11/20/20
 #ifndef LQUEUE_CPP
 #define LQUEUE_CPP
 

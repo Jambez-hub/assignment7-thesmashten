@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Refcounter.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Refcounter class
+// Last Changed: 11/20/20
 #ifndef REFCOUNTER_H
 #define REFCOUNTER_H
 

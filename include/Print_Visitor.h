@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Print_Visitor.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Print_Visitor class
+// Last Changed: 11/20/20
 #ifndef PRINT_VISITOR_H
 #define PRINT_VISITOR_H
 

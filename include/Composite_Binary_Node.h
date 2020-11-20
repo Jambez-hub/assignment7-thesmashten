@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Composite_Binary_Node.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Composite_Binary_Node data structure.
+// Last Changed: 11/20/20
 #ifndef COMPOSITE_BINARY_NODE_H
 #define COMPOSITE_BINARY_NODE_H
 

@@ -1,6 +1,11 @@
-/*
- * getopt - get option letter from argv
- */
+// File name: geopt.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an geopt class
+// Last Changed: 11/20/20
 
 #include <iostream>
 #include <stdio.h>

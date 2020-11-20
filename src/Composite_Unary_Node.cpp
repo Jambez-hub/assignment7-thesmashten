@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Composite_Unary_Node.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements a Composite_Unary_Node data structure.
+// Last Changed: 11/20/20
 #include "Composite_Unary_Node.h"
 
 // Ctor

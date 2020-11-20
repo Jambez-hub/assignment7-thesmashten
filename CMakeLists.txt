@@ -39,5 +39,6 @@ set(SOURCE_FILES
         ./src/Reactor.cpp
         ./src/Composite_Fact_Node.cpp
         ./src/Composite_Modulus_Node.cpp
-)
+        ./src/Composite_Unary_Node_Left.cpp
+        )
 add_executable(ExpressionTree ${SOURCE_FILES})

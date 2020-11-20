@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_State.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_State class
+// Last Changed: 11/20/20
 #include "Evaluation_Visitor.h"
 #include "Expression_Tree_Context.h"
 #include "Expression_Tree_Iterator.h"

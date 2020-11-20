@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Event_Handler.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_Event_Handler class.
+// Last Changed: 11/20/20
+
 #ifndef EXPRESSION_TREE_EVENT_HANDLER_CPP
 #define EXPRESSION_TREE_EVENT_HANDLER_CPP
 
@@ -24,9 +32,14 @@ void Expression_Tree_Event_Handler::handle_input()
 
     Expression_Tree_Command command = make_command(input);
     try {
-        if (!execute_command(command))
-            Reactor::instance()->end_event_loop();
-        else {
+        if (!execute_command(command)) {
+            if (input.empty() || input == "quit") {
+                Reactor::instance()->end_event_loop();
+            } else {
+                std::cout << "Invalid Input" << std::endl;
+                tree_context.state()->print_valid_commands(tree_context);
+            }
+        } else {
             last_valid_command = command;
             if (Options::instance()->verbose())
                 tree_context.state()->print_valid_commands(tree_context);
@@ -42,6 +55,9 @@ void Expression_Tree_Event_Handler::handle_input()
 
 bool Expression_Tree_Event_Handler::get_input(std::string& input)
 {
+    if (input == "quit") {
+        return std::cin.fail();
+    }
     std::getline(std::cin, input);
     int num = input.find_first_of(" ");
     std::string first;

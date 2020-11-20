@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Interpreter.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements a Interpreter design pattern.
+// Last Changed: 11/20/20
+
 #ifndef INTERPRETER_CPP
 #define INTERPRETER_CPP
 
@@ -12,6 +20,7 @@
 #include "Composite_Negate_Node.h"
 #include "Composite_Pow_Node.h"
 #include "Composite_Subtract_Node.h"
+#include "Composite_Unary_Node_Left.h"
 #include "Leaf_Node.h"
 #include <cstdlib>
 #include <iostream>

@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Evaluation_Visitor.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Evalauation_Visitor class
+// Last Changed: 11/20/20
 #include "Evaluation_Visitor.h"
 #include <iostream>
 #include <math.h> /* pow */

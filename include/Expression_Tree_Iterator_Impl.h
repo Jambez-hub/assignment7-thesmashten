@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Iterator_Impl.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Expression_Tree_Iterator_Impl data structure.
+// Last Changed: 11/20/20
 #ifndef TREE_ITERATOR_IMPL_H
 #define TREE_ITERATOR_IMPL_H
 

@@ -1,4 +1,11 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Expression_Tree data structure.
+// Last Changed: 11/20/20
 #ifndef EXPRESSION_TREE_H
 #define EXPRESSION_TREE_H
 

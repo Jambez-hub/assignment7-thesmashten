@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Context.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_Context class.
+// Last Changed: 11/20/20
+
 #include "Expression_Tree_Context.h"
 #include <cstdlib>
 #include <string>
@@ -74,13 +82,18 @@ void Expression_Tree_Context::set(const std::string& key_value_pair)
 
 void Expression_Tree_Context::get(const std::string& variable)
 {
-    std::string command = "get " + variable;
+    std::string::size_type pos;
+    // get rid of all spaces
+    std::string temp = variable;
+    while ((pos = temp.find(' ')) != std::string::npos)
+        temp.erase(pos, 1);
+    std::string command = "get " + temp;
     store.push(command);
-    if (!int_context.search(variable)) // check if variable is not in the map
+    if (!int_context.search(temp)) // check if variable is not in the map
     {
-        std::cout << "Error: unknown variable " << variable;
+        std::cout << "Error: unknown variable " << temp << std::endl;
     } else {
-        int value = int_context.get(variable);
+        int value = int_context.get(temp);
         std::cout << value << std::endl;
     }
 }
