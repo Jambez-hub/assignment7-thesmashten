@@ -374,6 +374,10 @@ int Negate::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Negate::build()
 {
+    if (right == nullptr){
+        std ::cout << "ERROR";
+        return new Composite_Negate_Node(nullptr);
+    }
     return new Composite_Negate_Node(right->build());
 }
 
