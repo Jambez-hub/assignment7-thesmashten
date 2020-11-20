@@ -40,10 +40,28 @@ Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_set_
     return Expression_Tree_Command(new Set_Command(tree_context, param));
 }
 
+Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_get_command(
+    const std::string& param)
+{
+    return Expression_Tree_Command(new Get_Command(tree_context, param));
+}
+
 Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_quit_command(
     const std::string&)
 {
     return Expression_Tree_Command(new Quit_Command(tree_context));
+}
+
+Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_list_command(
+    const std::string& param)
+{
+    return Expression_Tree_Command(new List_Command(tree_context));
+}
+
+Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_history_command(
+    const std::string& param)
+{
+    return Expression_Tree_Command(new History_Command(tree_context));
 }
 
 Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_macro_command(
@@ -68,7 +86,10 @@ Concrete_Expression_Tree_Command_Factory_Impl::Concrete_Expression_Tree_Command_
     command_map["print"] = &Expression_Tree_Command_Factory_Impl::make_print_command;
     command_map["eval"] = &Expression_Tree_Command_Factory_Impl::make_eval_command;
     command_map["set"] = &Expression_Tree_Command_Factory_Impl::make_set_command;
+    command_map["get"] = &Expression_Tree_Command_Factory_Impl::make_get_command;
+    command_map["list"] = &Expression_Tree_Command_Factory_Impl::make_list_command;
     command_map["quit"] = &Expression_Tree_Command_Factory_Impl::make_quit_command;
+    command_map["history"] = &Expression_Tree_Command_Factory_Impl::make_history_command;
 }
 
 Expression_Tree_Command Concrete_Expression_Tree_Command_Factory_Impl::make_command(

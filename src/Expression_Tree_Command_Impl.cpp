@@ -71,6 +71,40 @@ bool Set_Command::execute()
     return true;
 }
 
+Get_Command::Get_Command(Expression_Tree_Context& context, const std::string& key_value_pair)
+    : Expression_Tree_Command_Impl(context)
+    , variable(key_value_pair)
+{
+}
+
+List_Command::List_Command(Expression_Tree_Context& context)
+    : Expression_Tree_Command_Impl(context)
+{
+}
+
+bool List_Command::execute()
+{
+    tree_context.list();
+    return true;
+}
+
+History_Command::History_Command(Expression_Tree_Context& context)
+    : Expression_Tree_Command_Impl(context)
+{
+}
+
+bool History_Command::execute()
+{
+    tree_context.history();
+    return true;
+}
+
+bool Get_Command::execute()
+{
+    tree_context.get(variable);
+    return true;
+}
+
 Quit_Command::Quit_Command(Expression_Tree_Context& context)
     : Expression_Tree_Command_Impl(context)
 {

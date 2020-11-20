@@ -56,6 +56,18 @@ public:
     // implementation of the various commands.
     virtual Expression_Tree_Command make_set_command(const std::string&) = 0;
 
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_get_command(const std::string&) = 0;
+
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_list_command(const std::string&) = 0;
+
+    // Make the requested history command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_history_command(const std::string&) = 0;
+
     // Make the requested quit command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_quit_command(const std::string&) = 0;
@@ -105,9 +117,21 @@ public:
     // implementation of the various commands.
     virtual Expression_Tree_Command make_set_command(const std::string&);
 
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_get_command(const std::string&);
+
     // Make the requested quit command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_quit_command(const std::string&);
+
+    // Make the requested list command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_list_command(const std::string&);
+
+    // Make the requested history command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_history_command(const std::string&);
 
     // Make the requested macro command.  This method is used in the
     // implementation of the various commands.

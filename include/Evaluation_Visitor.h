@@ -2,14 +2,14 @@
 #ifndef EVALUATION_VISITOR_H
 #define EVALUATION_VISITOR_H
 
-#include "Visitor.h"
 #include "Composite_Add_Node.h"
 #include "Composite_Divide_Node.h"
 #include "Composite_Multiply_Node.h"
 #include "Composite_Negate_Node.h"
-#include "Composite_Subtract_Node.h"
 #include "Composite_Pow_Node.h"
+#include "Composite_Subtract_Node.h"
 #include "Leaf_Node.h"
+#include "Visitor.h"
 #include <stack>
 
 // forward declarations of nodes

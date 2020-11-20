@@ -2,6 +2,7 @@
 #include "Evaluation_Visitor.h"
 #include "Expression_Tree_Context.h"
 #include "Expression_Tree_Iterator.h"
+#include "Interpreter.h"
 #include "Print_Visitor.h"
 #include <algorithm>
 #include <iostream>
@@ -134,10 +135,15 @@ void Uninitialized_State::evaluate(Expression_Tree_Context&, const std::string&)
     throw Expression_Tree_State::Invalid_State("Eval - Can't call that command yet.");
 }
 
-void Uninitialized_State::print_valid_commands() const
+void Uninitialized_State::print_valid_commands(Expression_Tree_Context& context) const
 {
     std::cout << "1a. format [in-order]\n";
     std::cout << "1b. set [variable=value]\n";
+    if (context.int_context.size() > 0) {
+        std::cout << "1c. get [variable=value]\n";
+        std::cout << "1d. list\n";
+        std::cout << "1e. history\n";
+    }
     std::cout << "2. expr [expression]\n";
     std::cout << "3a. eval [post-order]\n";
     std::cout << "3b. print [in-order | pre-order | post-order | level-order]\n";
@@ -207,7 +213,7 @@ void In_Order_Uninitialized_State::make_tree(
     tree_context.state(new In_Order_Initialized_State);
 }
 
-void In_Order_Uninitialized_State::print_valid_commands() const
+void In_Order_Uninitialized_State::print_valid_commands(Expression_Tree_Context& context) const
 {
     std::cout << "\n";
     std::cout << "1. expr [expression]\n";
@@ -215,7 +221,12 @@ void In_Order_Uninitialized_State::print_valid_commands() const
     std::cout << "2b. print [in-order | pre-order | post-order | level-order]\n";
     std::cout << "0a. format [in-order]\n";
     std::cout << "0b. set [variable=value]\n";
-    std::cout << "0c. quit\n";
+    if (context.int_context.size() > 0) {
+        std::cout << "0c. get [variable=value]\n";
+        std::cout << "0d. list\n";
+        std::cout << "0e. history\n";
+    }
+    std::cout << "0d. quit\n";
     std::cout.flush();
 }
 
@@ -230,13 +241,18 @@ void In_Order_Initialized_State::evaluate(
     Expression_Tree_State::evaluate_tree(context.tree(), param, std::cout);
 }
 
-void In_Order_Initialized_State::print_valid_commands() const
+void In_Order_Initialized_State::print_valid_commands(Expression_Tree_Context& context) const
 {
     std::cout << "\n";
     std::cout << "1a. eval [post-order]\n";
     std::cout << "1b. print [in-order | pre-order | post-order | level-order]\n";
     std::cout << "0a. format [in-order]\n";
     std::cout << "0b. set [variable=value]\n";
-    std::cout << "0c. quit\n";
+    if (context.int_context.size() > 0) {
+        std::cout << "0c. get [variable=value]\n";
+        std::cout << "0d. list\n";
+        std::cout << "0e. history\n";
+    }
+    std::cout << "0d. quit\n";
     std::cout.flush();
 }

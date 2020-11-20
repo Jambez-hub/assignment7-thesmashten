@@ -1,6 +1,7 @@
 /* Copyright G. Hemingway @ 2019, All Rights Reserved */
 #include "Expression_Tree_Context.h"
 #include <cstdlib>
+#include <string>
 
 Expression_Tree_Context::Expression_Tree_Context()
     : treeState(new Uninitialized_State)
@@ -10,6 +11,8 @@ Expression_Tree_Context::Expression_Tree_Context()
 
 void Expression_Tree_Context::format(const std::string& new_format)
 {
+    std::string command = "format " + new_format;
+    store.push(command);
     treeState->format(*this, new_format);
     // we only reach here if the format was successful, and once
     // this is set, we will always have at least one valid format
@@ -20,21 +23,29 @@ void Expression_Tree_Context::format(const std::string& new_format)
 
 void Expression_Tree_Context::make_tree(const std::string& expression)
 {
+    std::string command = "expr " + expression;
+    store.push(command);
     treeState->make_tree(*this, expression);
 }
 
 void Expression_Tree_Context::print(const std::string& format)
 {
+    std::string command = "print " + format;
+    store.push(command);
     treeState->print(*this, format);
 }
 
 void Expression_Tree_Context::evaluate(const std::string& format)
 {
+    std::string command = "eval " + format;
+    store.push(command);
     treeState->evaluate(*this, format);
 }
 
 void Expression_Tree_Context::set(const std::string& key_value_pair)
 {
+    std::string command = "set " + key_value_pair;
+    store.push(command);
     // this is quite enough function calls.
     // we'll just go ahead and parse all of this now.
     std::string input = key_value_pair;
@@ -59,6 +70,42 @@ void Expression_Tree_Context::set(const std::string& key_value_pair)
             throw std::domain_error("Must be in the form key=value");
     } else
         throw std::domain_error("Must have = sign present");
+}
+
+void Expression_Tree_Context::get(const std::string& variable)
+{
+    std::string command = "get " + variable;
+    store.push(command);
+    if (!int_context.search(variable)) // check if variable is not in the map
+    {
+        std::cout << "Error: unknown variable " << variable;
+    } else {
+        int value = int_context.get(variable);
+        std::cout << value << std::endl;
+    }
+}
+
+void Expression_Tree_Context::list()
+{
+    std::string command = "list";
+    store.push(command);
+    std::cout << "\n";
+    for (uint32_t i = 0; i < int_context.size(); ++i) {
+        std::cout << int_context.getKey(i);
+        std::cout << ": ";
+        std::cout << int_context.getVal(i) << std::endl;
+    }
+    std::cout << "\n";
+}
+
+void Expression_Tree_Context::history()
+{
+    uint32_t count = 1;
+    while (!store.empty()) {
+        std::cout << "\t" << count << ") " << store.front() << "\n";
+        store.pop();
+        ++count;
+    }
 }
 
 Expression_Tree_State* Expression_Tree_Context::state() const

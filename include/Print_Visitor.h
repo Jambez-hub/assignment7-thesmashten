@@ -39,7 +39,6 @@ public:
 
     // visit function - prints Composite_Modulus_Node contents to std::cout
     void visit(const Composite_Modulus_Node& node) override;
-
 };
 
 #endif // PRINT_VISITOR_H

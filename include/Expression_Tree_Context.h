@@ -42,6 +42,17 @@ public:
     // is a string of the format "variable_name=variable_value"
     void set(const std::string& key_value_pair);
 
+    // Gets the value of the variable
+    // is a string of the format "variable_name=variable_value"
+    void get(const std::string& key_value_pair);
+
+    // Lists all the values of all the variables
+    // is a string of the format "variable_name=variable_value"
+    void list();
+
+    // Lists the last 5 commands
+    void history();
+
     // Return a pointer to the current Expression_Tree_State.
     Expression_Tree_State* state() const;
 
@@ -61,10 +72,13 @@ public:
         return isFormatted;
     }
 
+    Interpreter_Context getInterpreter();
+
     // Persistent interpreter context for variables. Our interpreter
     // will change values inside of this, so I just stuck the variable
     // in the public section.
     Interpreter_Context int_context;
+    std::queue<std::string> store;
 
 private:
     // Keep track of the current state that we're in.  We use an @a

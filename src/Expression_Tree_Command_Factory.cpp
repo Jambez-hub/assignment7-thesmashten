@@ -62,6 +62,21 @@ Expression_Tree_Command Expression_Tree_Command_Factory::make_set_command(const 
     return factory_impl->make_set_command(s);
 }
 
+Expression_Tree_Command Expression_Tree_Command_Factory::make_get_command(const std::string& s)
+{
+    return factory_impl->make_get_command(s);
+}
+
+Expression_Tree_Command Expression_Tree_Command_Factory::make_list_command(const std::string& s)
+{
+    return factory_impl->make_list_command(s);
+}
+
+Expression_Tree_Command Expression_Tree_Command_Factory::make_history_command(const std::string& s)
+{
+    return factory_impl->make_history_command(s);
+}
+
 Expression_Tree_Command Expression_Tree_Command_Factory::make_quit_command(const std::string& s)
 {
     return factory_impl->make_quit_command(s);

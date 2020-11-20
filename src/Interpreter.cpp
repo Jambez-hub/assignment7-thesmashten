@@ -6,12 +6,12 @@
 #include "Component_Node.h"
 #include "Composite_Add_Node.h"
 #include "Composite_Divide_Node.h"
-#include "Composite_Multiply_Node.h"
-#include "Composite_Negate_Node.h"
-#include "Composite_Subtract_Node.h"
-#include "Composite_Pow_Node.h"
 #include "Composite_Fact_Node.h"
 #include "Composite_Modulus_Node.h"
+#include "Composite_Multiply_Node.h"
+#include "Composite_Negate_Node.h"
+#include "Composite_Pow_Node.h"
+#include "Composite_Subtract_Node.h"
 #include "Leaf_Node.h"
 #include <cstdlib>
 #include <iostream>
@@ -149,9 +149,9 @@ class Factorial : public Unary_Left_Operator {
 public:
     // constructor
     Factorial();
-    //destructor
+    // destructor
     ~Factorial() override = default;
-    //returns the precedence level
+    // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
     // builds an equivalent Expression_Tree node
     Component_Node* build() override;
@@ -209,7 +209,7 @@ public:
     ~Modulus() override = default;
     // returns the precedence level
     int add_precedence(int accumulated_precedence) override;
-    //builds an equivalent Expression_Treee node
+    // builds an equivalent Expression_Treee node
     Component_Node* build() override;
 };
 
@@ -236,6 +236,40 @@ void Interpreter_Context::print()
 void Interpreter_Context::reset()
 {
     map.clear();
+}
+
+bool Interpreter_Context::search(std::string variable)
+{
+    if (map.find(variable) == map.end()) {
+        return false;
+    }
+    return true;
+}
+
+int Interpreter_Context::size()
+{
+    uint32_t count = 0;
+    for (auto i = map.begin(); i != map.end(); ++i) {
+        ++count;
+    }
+    return count;
+}
+
+std::string Interpreter_Context::getKey(uint32_t index)
+{
+    auto i = map.begin();
+    for (uint32_t j = 0; j < index; ++j) {
+        ++i;
+    }
+    return i->first;
+}
+uint32_t Interpreter_Context::getVal(uint32_t index)
+{
+    auto i = map.begin();
+    for (uint32_t j = 0; j < index; ++j) {
+        ++i;
+    }
+    return i->second;
 }
 
 // constructor
@@ -309,6 +343,10 @@ int Factorial::add_precedence(int accumulated_precedence)
 
 Component_Node* Factorial::build()
 {
+    if (left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Fact_Node(nullptr);
+    }
     return new Composite_Fact_Node(left->build());
 }
 
@@ -345,6 +383,10 @@ int Add::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Add::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Add_Node(nullptr, nullptr);
+    }
     return new Composite_Add_Node(left->build(), right->build());
 }
 
@@ -363,6 +405,10 @@ int Subtract::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Subtract::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Subtract_Node(nullptr, nullptr);
+    }
     return new Composite_Subtract_Node(left->build(), right->build());
 }
 
@@ -381,6 +427,10 @@ int Multiply::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Multiply::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Multiply_Node(nullptr, nullptr);
+    }
     return new Composite_Multiply_Node(left->build(), right->build());
 }
 
@@ -393,6 +443,10 @@ Pow::Pow()
 // builds an equivalent Expression_Tree node
 Component_Node* Pow::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Pow_Node(nullptr, nullptr);
+    }
     return new Composite_Pow_Node(left->build(), right->build());
 }
 
@@ -401,7 +455,6 @@ int Pow::add_precedence(int accumulated_precedence)
 {
     return this->prec = 4 + accumulated_precedence;
 }
-
 
 // constructor
 Divide::Divide()
@@ -418,6 +471,10 @@ int Divide::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Divide::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Divide_Node(nullptr, nullptr);
+    }
     return new Composite_Divide_Node(left->build(), right->build());
 }
 
@@ -436,6 +493,10 @@ int Modulus::add_precedence(int accumulated_precedence)
 // builds an equivalent Expression_Tree node
 Component_Node* Modulus::build()
 {
+    if (right == nullptr || left == nullptr) {
+        std ::cout << "ERROR";
+        return new Composite_Modulus_Node(nullptr, nullptr);
+    }
     return new Composite_Modulus_Node(left->build(), right->build());
 }
 
@@ -667,22 +728,19 @@ void Interpreter::main_loop(Interpreter_Context& context, const std::string& inp
     } else if (input[i] == ' ' || input[i] == '\n') {
         handled = true;
         // skip whitespace
-    }
-    else if (input[i] == '^'){
+    } else if (input[i] == '^') {
         handled = true;
         auto op = new Pow();
         op->add_precedence(accumulated_precedence);
         lastValidInput = nullptr;
         precedence_insert(op, list);
-    }
-    else if (input[i] == '!'){
+    } else if (input[i] == '!') {
         handled = true;
         auto op = new Factorial();
         op->add_precedence(accumulated_precedence);
         lastValidInput = nullptr;
         precedence_insert(op, list);
-    }
-    else if (input[i] == '%'){
+    } else if (input[i] == '%') {
         handled = true;
         auto op = new Modulus();
         op->add_precedence(accumulated_precedence);
@@ -695,6 +753,7 @@ void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::st
     std::string::size_type& i, Symbol*& lastValidInput, bool& handled, int& accumulated_precedence,
     std::list<Symbol*>& master_list)
 {
+
     /* handle parenthesis is a lot like handling a new interpret.
        the difference is that we have to worry about how the calling
        function has its list setup */
@@ -738,7 +797,6 @@ void Interpreter::handle_parenthesis(Interpreter_Context& context, const std::st
 
 // Converts a string and context into a parse tree and builds an
 // expression tree out of the parse tree.
-
 Expression_Tree Interpreter::interpret(Interpreter_Context& context, const std::string& input)
 {
     std::list<Symbol*> list;

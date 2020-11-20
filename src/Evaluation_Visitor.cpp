@@ -1,7 +1,7 @@
 /* Copyright G. Hemingway @ 2019, All Rights Reserved */
 #include "Evaluation_Visitor.h"
 #include <iostream>
-#include <math.h>       /* pow */
+#include <math.h> /* pow */
 #include <memory>
 
 // base evaluation for a node. This is used by Leaf_Node
@@ -75,7 +75,7 @@ void Evaluation_Visitor::visit(const Composite_Multiply_Node&)
 // evaluations of a pow (Composite_Pow_Node)
 void Evaluation_Visitor::visit(const Composite_Pow_Node&)
 {
-    if (stack.size() >= 2){
+    if (stack.size() >= 2) {
         auto rhs = stack.top();
         stack.pop();
         auto lhs = stack.top();
@@ -86,11 +86,12 @@ void Evaluation_Visitor::visit(const Composite_Pow_Node&)
 }
 
 // evaluations of a Factorial (Composite_Fact_Node)
-void Evaluation_Visitor::visit(const Composite_Fact_Node& node) {
+void Evaluation_Visitor::visit(const Composite_Fact_Node& node)
+{
     if (stack.size() >= 1) {
         int result = 1;
         auto value = stack.top();
-        for (uint32_t i = 1; i <= value; ++i){
+        for (uint32_t i = 1; i <= value; ++i) {
             result *= i;
         }
         stack.pop();
@@ -98,7 +99,8 @@ void Evaluation_Visitor::visit(const Composite_Fact_Node& node) {
     }
 }
 
-void Evaluation_Visitor::visit(const Composite_Modulus_Node& node){
+void Evaluation_Visitor::visit(const Composite_Modulus_Node& node)
+{
     if (stack.size() >= 2 && stack.top()) {
         auto rhs = stack.top();
         stack.pop();
@@ -107,8 +109,6 @@ void Evaluation_Visitor::visit(const Composite_Modulus_Node& node){
         stack.push(lhs % rhs);
     }
 }
-
-
 
 // print a total for the evaluation
 int Evaluation_Visitor::total()

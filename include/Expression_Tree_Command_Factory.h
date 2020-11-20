@@ -56,6 +56,18 @@ public:
     // implementation of the various commands.
     Expression_Tree_Command make_set_command(const std::string&);
 
+    // Make the requested get command.  This method is used in the
+    // implementation of the various commands.
+    Expression_Tree_Command make_get_command(const std::string&);
+
+    // Make the requested list command.  This method is used in the
+    // implementation of the various commands.
+    Expression_Tree_Command make_list_command(const std::string&);
+
+    // Make the requested history command.  This method is used in the
+    // implementation of the various commands.
+    Expression_Tree_Command make_history_command(const std::string&);
+
     // Make the requested eval command.  This method is used in the
     // implementation of the various commands.
     Expression_Tree_Command make_eval_command(const std::string&);

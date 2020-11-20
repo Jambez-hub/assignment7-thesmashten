@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <map>
+#include <queue>
 #include <string>
 
 // Forward declaration.
@@ -51,7 +52,7 @@ public:
     // @context accordingly.
     virtual void evaluate(Expression_Tree_Context& context, const std::string& format) = 0;
 
-    virtual void print_valid_commands() const = 0;
+    virtual void print_valid_commands(Expression_Tree_Context& context) const = 0;
 
     // Print the operators and operands of the tree to the @os in
     // the designated traversal_order.
@@ -92,7 +93,7 @@ public:
     void evaluate(Expression_Tree_Context& context, const std::string& format) override;
 
     // Print the list of valid command if the user is in this state
-    void print_valid_commands() const override;
+    void print_valid_commands(Expression_Tree_Context& context) const override;
 
 private:
     /**
@@ -216,7 +217,7 @@ public:
     void make_tree(Expression_Tree_Context& context, const std::string& expression) override;
 
     // Print the list of valid command if the user is in this state
-    void print_valid_commands() const override;
+    void print_valid_commands(Expression_Tree_Context& context) const override;
 };
 
 /**
@@ -236,7 +237,7 @@ public:
     void evaluate(Expression_Tree_Context& context, const std::string& format) override;
 
     // Print the list of valid command if the user is in this state
-    void print_valid_commands() const override;
+    void print_valid_commands(Expression_Tree_Context& context) const override;
 };
 
 /**

@@ -2,6 +2,7 @@
 #ifndef EXPRESSION_TREE_CPP
 #define EXPRESSION_TREE_CPP
 
+#include "iostream"
 #include <algorithm>
 #include <cstdlib>
 #include <map>

@@ -3,6 +3,7 @@
 #define EXPRESSION_TREE_COMMAND_IMPL_H
 
 #include <iostream>
+#include <queue>
 #include <string>
 #include <vector>
 
@@ -133,10 +134,47 @@ private:
     std::string key_value_pair;
 };
 
+class Get_Command : public Expression_Tree_Command_Impl {
+public:
+    // Constructor that provides the appropriate @a
+    // Expression_Tree_Context and the requested format.
+    Get_Command(Expression_Tree_Context& context, const std::string& variable);
+
+    // Evaluate the expression tree.
+    bool execute() override;
+
+private:
+    // Format to use for the evaluation.
+    std::string variable;
+};
+
+class List_Command : public Expression_Tree_Command_Impl {
+public:
+    // Constructor that provides the appropriate @a
+    // Expression_Tree_Context and the requested format.
+    List_Command(Expression_Tree_Context&);
+
+    // Evaluate the expression tree.
+    bool execute() override;
+};
+
+class History_Command : public Expression_Tree_Command_Impl {
+public:
+    // Constructor that provides the appropriate @a
+    // Expression_Tree_Context and the requested format.
+    History_Command(Expression_Tree_Context&);
+
+    // Evaluate the expression tree.
+    bool execute() override;
+
+private:
+    std::queue<std::string> store;
+};
 /**
  * @class Quit_Command
  * @brief Instructs the event loop to shut down.
  */
+
 class Quit_Command : public Expression_Tree_Command_Impl {
 public:
     // Constructor that provides the appropriate @a

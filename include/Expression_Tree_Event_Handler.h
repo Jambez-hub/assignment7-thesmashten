@@ -38,6 +38,9 @@ public:
     // commands.
     virtual void handle_input();
 
+    // Converts the string to lowercase
+    std::string toLowerCase(std::string& input);
+
 protected:
     // This hook method is a placeholder for prompting the user for
     // input.

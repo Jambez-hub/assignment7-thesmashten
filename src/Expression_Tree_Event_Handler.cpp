@@ -29,21 +29,39 @@ void Expression_Tree_Event_Handler::handle_input()
         else {
             last_valid_command = command;
             if (Options::instance()->verbose())
-                tree_context.state()->print_valid_commands();
+                tree_context.state()->print_valid_commands(tree_context);
         }
     } catch (Expression_Tree::Invalid_Iterator& e) {
         std::cout << "\nERROR: Bad traversal type (" << e.what() << ")\n";
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
     } catch (Expression_Tree_State::Invalid_State& e) {
         std::cout << "\nERROR: " << e.what() << std::endl;
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
     }
 }
 
 bool Expression_Tree_Event_Handler::get_input(std::string& input)
 {
     std::getline(std::cin, input);
+    int num = input.find_first_of(" ");
+    std::string first;
+    std::string second;
+    if (num == -1) { // handle error if cannot find the first ocurrence
+        first = input;
+    } else {
+        first = input.substr(0, num);
+        second = input.substr(num);
+    }
+    toLowerCase(first);
+    input = first + second;
     return !std::cin.fail();
+}
+
+std::string Expression_Tree_Event_Handler::toLowerCase(std::string& input)
+{
+    std::transform(
+        input.begin(), input.end(), input.begin(), [](unsigned char c) { return std::tolower(c); });
+    return input;
 }
 
 bool Expression_Tree_Event_Handler::execute_command(Expression_Tree_Command& command)
@@ -66,7 +84,7 @@ Verbose_Expression_Tree_Event_Handler::Verbose_Expression_Tree_Event_Handler()
 void Verbose_Expression_Tree_Event_Handler::prompt_user()
 {
     if (!prompted) {
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
         prompted = true;
     }
     std::cout << "> ";
@@ -90,6 +108,7 @@ Expression_Tree_Command Macro_Command_Expression_Tree_Event_Handler::make_comman
 {
     if (input == "")
         return command_factory.make_quit_command(input);
+
     return command_factory.make_macro_command(input);
 }
 
