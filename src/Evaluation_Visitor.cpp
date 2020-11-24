@@ -1,12 +1,15 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Evaluation_Visitor.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Evalauation_Visitor class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include "Evaluation_Visitor.h"
-#include "Composite_Add_Node.h"
-#include "Composite_Divide_Node.h"
-#include "Composite_Multiply_Node.h"
-#include "Composite_Negate_Node.h"
-#include "Composite_Subtract_Node.h"
-#include "Leaf_Node.h"
 #include <iostream>
+#include <math.h> /* pow */
 #include <memory>
 
 // base evaluation for a node. This is used by Leaf_Node
@@ -65,7 +68,7 @@ void Evaluation_Visitor::visit(const Composite_Divide_Node&)
     }
 }
 
-// evaluations of a division (Composite_Multiply_Node)
+// evaluations of a multiplication (Composite_Multiply_Node)
 void Evaluation_Visitor::visit(const Composite_Multiply_Node&)
 {
     if (stack.size() >= 2) {
@@ -74,6 +77,44 @@ void Evaluation_Visitor::visit(const Composite_Multiply_Node&)
         auto lhs = stack.top();
         stack.pop();
         stack.push(lhs * rhs);
+    }
+}
+
+// evaluations of a pow (Composite_Pow_Node)
+void Evaluation_Visitor::visit(const Composite_Pow_Node&)
+{
+    if (stack.size() >= 2) {
+        auto rhs = stack.top();
+        stack.pop();
+        auto lhs = stack.top();
+        stack.pop();
+        int value = pow(lhs, rhs);
+        stack.push(value);
+    }
+}
+
+// evaluations of a Factorial (Composite_Fact_Node)
+void Evaluation_Visitor::visit(const Composite_Fact_Node& node)
+{
+    if (stack.size() >= 1) {
+        int result = 1;
+        auto value = stack.top();
+        for (uint32_t i = 1; i <= value; ++i) {
+            result *= i;
+        }
+        stack.pop();
+        stack.push(result);
+    }
+}
+
+void Evaluation_Visitor::visit(const Composite_Modulus_Node& node)
+{
+    if (stack.size() >= 2 && stack.top()) {
+        auto rhs = stack.top();
+        stack.pop();
+        auto lhs = stack.top();
+        stack.pop();
+        stack.push(lhs % rhs);
     }
 }
 

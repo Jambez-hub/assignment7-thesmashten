@@ -1,7 +1,17 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
+
 #ifndef EXPRESSION_TREE_CPP
 #define EXPRESSION_TREE_CPP
 
+#include "iostream"
 #include <algorithm>
 #include <cstdlib>
 #include <map>

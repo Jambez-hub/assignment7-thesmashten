@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Composite_Add_Node.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Composite_Add_Node data structure.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef ADD_NODE_H
 #define ADD_NODE_H
 

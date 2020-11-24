@@ -13,6 +13,7 @@ set(SOURCE_FILES
         ./src/Composite_Binary_Node.cpp
         ./src/Composite_Divide_Node.cpp
         ./src/Composite_Multiply_Node.cpp
+        ./src/Composite_Pow_Node.cpp
         ./src/Composite_Negate_Node.cpp
         ./src/Composite_Subtract_Node.cpp
         ./src/Composite_Unary_Node.cpp
@@ -31,8 +32,13 @@ set(SOURCE_FILES
         ./src/Interpreter.cpp
         ./src/Leaf_Node.cpp
         ./src/main.cpp
+        ./src/LStack.cpp
+        ./src/LQueue.cpp
         ./src/Options.cpp
         ./src/Print_Visitor.cpp
         ./src/Reactor.cpp
-)
+        ./src/Composite_Fact_Node.cpp
+        ./src/Composite_Modulus_Node.cpp
+        ./src/Composite_Unary_Node_Left.cpp
+        )
 add_executable(ExpressionTree ${SOURCE_FILES})

@@ -1,4 +1,12 @@
-/* -*- C++ -*- */
+// File name: LStack.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a LStack class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef LSTACK_H
 #define LSTACK_H
 

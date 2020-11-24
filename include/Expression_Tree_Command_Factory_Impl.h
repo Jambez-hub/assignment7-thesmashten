@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Command_Factory_Impl.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Expression_Tree_Command_Factory_Impl data structure.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EXPRESSION_TREE_COMMAND_FACTORY_IMPL_H
 #define EXPRESSION_TREE_COMMAND_FACTORY_IMPL_H
 
@@ -56,6 +64,18 @@ public:
     // implementation of the various commands.
     virtual Expression_Tree_Command make_set_command(const std::string&) = 0;
 
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_get_command(const std::string&) = 0;
+
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_list_command(const std::string&) = 0;
+
+    // Make the requested history command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_history_command(const std::string&) = 0;
+
     // Make the requested quit command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_quit_command(const std::string&) = 0;
@@ -63,6 +83,10 @@ public:
     // Make the requested macro command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_macro_command(const std::string&) = 0;
+
+    // Make the requested macro command.  This method is used in the
+    // implementation of the various commands.
+    // virtual Expression_Tree_Command make_stats_command(const std::string&) = 0;
 
 protected:
     // Ctor - only visible to derived classes.
@@ -105,13 +129,29 @@ public:
     // implementation of the various commands.
     virtual Expression_Tree_Command make_set_command(const std::string&);
 
+    // Make the requested eval command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_get_command(const std::string&);
+
     // Make the requested quit command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_quit_command(const std::string&);
 
+    // Make the requested list command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_list_command(const std::string&);
+
+    // Make the requested history command.  This method is used in the
+    // implementation of the various commands.
+    virtual Expression_Tree_Command make_history_command(const std::string&);
+
     // Make the requested macro command.  This method is used in the
     // implementation of the various commands.
     virtual Expression_Tree_Command make_macro_command(const std::string&);
+
+    // Make the requested macro command.  This method is used in the
+    // implementation of the various commands.
+    // virtual Expression_Tree_Command make_stats_command(const std::string&);
 
 private:
     // Useful typedefs to simplify use of the STL @std::map.

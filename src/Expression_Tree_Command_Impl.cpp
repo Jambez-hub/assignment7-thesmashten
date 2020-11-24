@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Command_Impl.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_Command_Impl class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #include "Expression_Tree_Command_Impl.h"
 #include "Expression_Tree_Command_Factory_Impl.h"
 #include "Expression_Tree_Context.h"
@@ -68,6 +76,40 @@ Set_Command::Set_Command(Expression_Tree_Context& context, const std::string& pa
 bool Set_Command::execute()
 {
     tree_context.set(key_value_pair);
+    return true;
+}
+
+Get_Command::Get_Command(Expression_Tree_Context& context, const std::string& key_value_pair)
+    : Expression_Tree_Command_Impl(context)
+    , variable(key_value_pair)
+{
+}
+
+List_Command::List_Command(Expression_Tree_Context& context)
+    : Expression_Tree_Command_Impl(context)
+{
+}
+
+bool List_Command::execute()
+{
+    tree_context.list();
+    return true;
+}
+
+History_Command::History_Command(Expression_Tree_Context& context)
+    : Expression_Tree_Command_Impl(context)
+{
+}
+
+bool History_Command::execute()
+{
+    tree_context.history();
+    return true;
+}
+
+bool Get_Command::execute()
+{
+    tree_context.get(variable);
     return true;
 }
 

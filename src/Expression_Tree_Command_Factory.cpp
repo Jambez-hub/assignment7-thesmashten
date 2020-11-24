@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Command_Factory.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_Command_Factory class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EXPRESSION_TREE_COMMAND_FACTORY_CPP
 #define EXPRESSION_TREE_COMMAND_FACTORY_CPP
 
@@ -60,6 +68,21 @@ Expression_Tree_Command Expression_Tree_Command_Factory::make_eval_command(const
 Expression_Tree_Command Expression_Tree_Command_Factory::make_set_command(const std::string& s)
 {
     return factory_impl->make_set_command(s);
+}
+
+Expression_Tree_Command Expression_Tree_Command_Factory::make_get_command(const std::string& s)
+{
+    return factory_impl->make_get_command(s);
+}
+
+Expression_Tree_Command Expression_Tree_Command_Factory::make_list_command(const std::string& s)
+{
+    return factory_impl->make_list_command(s);
+}
+
+Expression_Tree_Command Expression_Tree_Command_Factory::make_history_command(const std::string& s)
+{
+    return factory_impl->make_history_command(s);
 }
 
 Expression_Tree_Command Expression_Tree_Command_Factory::make_quit_command(const std::string& s)

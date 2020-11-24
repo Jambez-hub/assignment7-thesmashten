@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Event_Handler.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Expression_Tree_Event_Handler data structure.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EXPRESSION_TREE_EVENT_HANDLER_H
 #define EXPRESSION_TREE_EVENT_HANDLER_H
 
@@ -37,6 +45,9 @@ public:
     // of steps associated with processing expression tree application
     // commands.
     virtual void handle_input();
+
+    // Converts the string to lowercase
+    std::string toLowerCase(std::string& input);
 
 protected:
     // This hook method is a placeholder for prompting the user for

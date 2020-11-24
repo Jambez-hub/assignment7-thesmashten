@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Visitor.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Visitor class
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef VISITOR_H
 #define VISITOR_H
 
@@ -8,7 +16,9 @@ class Composite_Add_Node;
 class Composite_Subtract_Node;
 class Composite_Divide_Node;
 class Composite_Multiply_Node;
-
+class Composite_Pow_Node;
+class Composite_Fact_Node;
+class Composite_Modulus_Node;
 /**
  * @class Visitor
  * @brief Abstract base class for all visitors to all classes that derive
@@ -36,6 +46,15 @@ public:
 
     // Visit a Composite_Multiply_Node.
     virtual void visit(const Composite_Multiply_Node& node) = 0;
+
+    // Visit a Composite_Pow_Node
+    virtual void visit(const Composite_Pow_Node& node) = 0;
+
+    // Visit a Composite_Fact_Node
+    virtual void visit(const Composite_Fact_Node& node) = 0;
+
+    // Visit a Composite_Modulus_Node
+    virtual void visit(const Composite_Modulus_Node& node) = 0;
 
     // No-op destructor to hold things together.
     virtual ~Visitor() = default;

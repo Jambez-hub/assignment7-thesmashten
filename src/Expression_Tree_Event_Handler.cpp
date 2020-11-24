@@ -1,8 +1,18 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Event_Handler.cpp
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class implements an Expression_Tree_Event_Handler class.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
+
 #ifndef EXPRESSION_TREE_EVENT_HANDLER_CPP
 #define EXPRESSION_TREE_EVENT_HANDLER_CPP
 
 #include "Expression_Tree_Event_Handler.h"
+#include "Expression_Tree_Context.h"
 #include "Options.h"
 #include "Reactor.h"
 #include <iostream>
@@ -24,26 +34,52 @@ void Expression_Tree_Event_Handler::handle_input()
 
     Expression_Tree_Command command = make_command(input);
     try {
-        if (!execute_command(command))
-            Reactor::instance()->end_event_loop();
-        else {
+        if (!execute_command(command)) {
+            if (input.empty() || input == "quit") {
+                Reactor::instance()->end_event_loop();
+            } else {
+                std::cout << "Invalid Input" << std::endl;
+                tree_context.state()->print_valid_commands(tree_context);
+            }
+        } else {
             last_valid_command = command;
             if (Options::instance()->verbose())
-                tree_context.state()->print_valid_commands();
+                tree_context.state()->print_valid_commands(tree_context);
         }
     } catch (Expression_Tree::Invalid_Iterator& e) {
         std::cout << "\nERROR: Bad traversal type (" << e.what() << ")\n";
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
     } catch (Expression_Tree_State::Invalid_State& e) {
         std::cout << "\nERROR: " << e.what() << std::endl;
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
     }
 }
 
 bool Expression_Tree_Event_Handler::get_input(std::string& input)
 {
+    if (input == "quit") {
+        return std::cin.fail();
+    }
     std::getline(std::cin, input);
+    int pos = input.find_first_of(" ");
+    std::string part1;
+    std::string part2;
+    if (pos == -1) { // handle error if cannot find the first ocurrence
+        part1 = input;
+    } else {
+        part1 = input.substr(0, pos);
+        part2 = input.substr(pos);
+    }
+    toLowerCase(part1);
+    input = part1 + part2;
     return !std::cin.fail();
+}
+
+std::string Expression_Tree_Event_Handler::toLowerCase(std::string& input)
+{
+    std::transform(
+        input.begin(), input.end(), input.begin(), [](unsigned char c) { return std::tolower(c); });
+    return input;
 }
 
 bool Expression_Tree_Event_Handler::execute_command(Expression_Tree_Command& command)
@@ -66,7 +102,7 @@ Verbose_Expression_Tree_Event_Handler::Verbose_Expression_Tree_Event_Handler()
 void Verbose_Expression_Tree_Event_Handler::prompt_user()
 {
     if (!prompted) {
-        tree_context.state()->print_valid_commands();
+        tree_context.state()->print_valid_commands(tree_context);
         prompted = true;
     }
     std::cout << "> ";
@@ -90,6 +126,7 @@ Expression_Tree_Command Macro_Command_Expression_Tree_Event_Handler::make_comman
 {
     if (input == "")
         return command_factory.make_quit_command(input);
+
     return command_factory.make_macro_command(input);
 }
 

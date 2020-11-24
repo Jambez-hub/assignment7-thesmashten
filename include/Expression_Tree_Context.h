@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Expression_Tree_Context.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Expression_Tree_Context data structure.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef TREE_CONTEXT_H
 #define TREE_CONTEXT_H
 
@@ -42,6 +50,17 @@ public:
     // is a string of the format "variable_name=variable_value"
     void set(const std::string& key_value_pair);
 
+    // Gets the value of the variable
+    // is a string of the format "variable_name=variable_value"
+    void get(const std::string& key_value_pair);
+
+    // Lists all the values of all the variables
+    // is a string of the format "variable_name=variable_value"
+    void list();
+
+    // Lists the last 5 commands
+    void history();
+
     // Return a pointer to the current Expression_Tree_State.
     Expression_Tree_State* state() const;
 
@@ -60,11 +79,13 @@ public:
     {
         return isFormatted;
     }
+    bool isValid(std::string expression);
 
     // Persistent interpreter context for variables. Our interpreter
     // will change values inside of this, so I just stuck the variable
     // in the public section.
     Interpreter_Context int_context;
+    std::queue<std::string> store;
 
 private:
     // Keep track of the current state that we're in.  We use an @a

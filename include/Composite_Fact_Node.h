@@ -1,14 +1,14 @@
-// File name: Composite_Negate_Node.h
+// File name: Composite_Fact_Node.h
 // Author: Nishant Jain
 // VUnetID: jainn6
 // Email: nishant.jain@vanderbilt.edu
 // Class: CS3251
 // Assignment Number: 7
-// Description: This class defines a Composite_Negate_Node data structure.
+// Description: This class defines a Composite_Fact_Node data structure.
 // Last Changed: 11/20/20
 // Honor statement: I have neither given nor received any unauthorized aid on this assignment.
-#ifndef COMPOSITE_NEGATE_NODE_H
-#define COMPOSITE_NEGATE_NODE_H
+#ifndef COMPOSITE_FACT_NODE_H
+#define COMPOSITE_FACT_NODE_H
 
 #include "Composite_Unary_Node.h"
 
@@ -18,16 +18,16 @@ class Visitor;
 
 /**
  * @class Composite_Negate_Node
- * @brief A composite node containing only a right child.
- *        The meaning of this node is -right, eg -5, -7, etc.
+ * @brief A composite node containing only a left child.
+ *        The meaning of this node is left!
  */
-class Composite_Negate_Node : public Composite_Unary_Node {
+class Composite_Fact_Node : public Composite_Unary_Node {
 public:
     // Ctor
-    explicit Composite_Negate_Node(Component_Node* right);
+    explicit Composite_Fact_Node(Component_Node* left);
 
     // Dtor
-    ~Composite_Negate_Node() override = default;
+    ~Composite_Fact_Node() override = default;
 
     // Return the printable character stored in the node.
     int item() const override;

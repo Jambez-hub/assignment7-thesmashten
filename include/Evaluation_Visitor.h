@@ -1,7 +1,22 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Evaluation_Visitor.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Evaluation_Visitor data structure.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef EVALUATION_VISITOR_H
 #define EVALUATION_VISITOR_H
 
+#include "Composite_Add_Node.h"
+#include "Composite_Divide_Node.h"
+#include "Composite_Multiply_Node.h"
+#include "Composite_Negate_Node.h"
+#include "Composite_Pow_Node.h"
+#include "Composite_Subtract_Node.h"
+#include "Leaf_Node.h"
 #include "Visitor.h"
 #include <stack>
 
@@ -14,6 +29,7 @@ class Composite_Add_Node;
 class Composite_Subtract_Node;
 class Composite_Divide_Node;
 class Composite_Multiply_Node;
+class Composite_Pow_Node;
 
 /**
  * @class Evaluation_Visitor
@@ -41,6 +57,15 @@ public:
 
     // Visit a Composite_Multiply_Node.
     void visit(const Composite_Multiply_Node& node) override;
+
+    // Visit a Composite_Pow_Node.
+    void visit(const Composite_Pow_Node& node) override;
+
+    // Visit a Composite_Fact_Node.
+    void visit(const Composite_Fact_Node& node) override;
+
+    // Visit a Composite_Modulus_Node.
+    void visit(const Composite_Modulus_Node& node) override;
 
     // Print the total of the evaluation.
     int total();

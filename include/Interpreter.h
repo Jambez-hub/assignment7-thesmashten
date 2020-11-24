@@ -1,4 +1,12 @@
-/* Copyright G. Hemingway @ 2019, All Rights Reserved */
+// File name: Interpreter.h
+// Author: Nishant Jain
+// VUnetID: jainn6
+// Email: nishant.jain@vanderbilt.edu
+// Class: CS3251
+// Assignment Number: 7
+// Description: This class defines a Interpreter design pattern.
+// Last Changed: 11/20/20
+// Honor statement: I have neither given nor received any unauthorized aid on this assignment.
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
@@ -31,6 +39,14 @@ public:
     void print();
     // Clear all variables and their values.
     void reset();
+    // Find a certain variable and print value
+    bool search(std::string variable);
+    // Get the number of elements in the map
+    int size();
+    // get the Key 'variable name' for list method
+    std::string getKey(uint32_t index);
+    // get the actual value to print for list method
+    uint32_t getVal(uint32_t index);
 
 private:
     // Hash table containing variable names and values.
